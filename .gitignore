@@ -5,3 +5,4 @@ venv/
 env/
 .aws-sam/
 .idea/
+samconfig.toml

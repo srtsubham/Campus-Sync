@@ -1,14 +1,18 @@
 from fastapi import APIRouter
-from app.models.schemas import A
-from app.services.db import d, e
+import os
+import boto3
 
-f = APIRouter()
+router = APIRouter()
 
-@f.post("/student")
-def g(x: A):
-    y = x.model_dump()
-    return d(y)
+s = boto3.resource("dynamodb")
+t = s.Table(os.environ.get("TABLE", "StudentTable"))
 
-@f.get("/student/{z}")
-def h(z: str):
-    return e(z)
+@router.post("/student")
+def p(d: dict):
+    t.put_item(Item=d)
+    return d
+
+@router.get("/students")
+def g():
+    response = t.scan()
+    return response.get("Items", [])

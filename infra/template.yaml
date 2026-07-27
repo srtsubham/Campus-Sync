@@ -1,6 +1,13 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
+Globals:
+  Api:
+    Cors:
+      AllowMethods: "'*'"
+      AllowHeaders: "'*'"
+      AllowOrigin: "'*'"
+
 Resources:
   StudentTable:
     Type: AWS::Serverless::SimpleTable
@@ -12,9 +19,7 @@ Resources:
   BackendFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: app.main.handler
-      Runtime: python3.11
-      CodeUri: ../backend/
+      PackageType: Image
       MemorySize: 256
       Timeout: 15
       Policies:
@@ -34,3 +39,7 @@ Resources:
           Properties:
             Path: /{proxy+}
             Method: ANY
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ../backend
+      DockerTag: v1
