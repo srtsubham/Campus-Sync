@@ -2,6 +2,13 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
 Resources:
+  StudentTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+
   BackendFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -10,6 +17,12 @@ Resources:
       CodeUri: ../backend/
       MemorySize: 256
       Timeout: 15
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref StudentTable
+      Environment:
+        Variables:
+          TABLE: !Ref StudentTable
       Events:
         Root:
           Type: Api
