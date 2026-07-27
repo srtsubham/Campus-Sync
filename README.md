@@ -1,2 +1,2 @@
 # Campus-Sync
-AWS based student management ERP system by Cicada26.
+AWS based student management ERP system by Cicada26 .
