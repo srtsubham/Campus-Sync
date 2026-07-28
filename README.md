@@ -32,3 +32,11 @@ Campus Sync is a highly scalable, cloud-native student management infrastructure
 1. Clone the repository:
    ```bash
    git clone [https://github.com/srtsubham/Campus-Sync.git](https://github.com/srtsubham/Campus-Sync.git)
+2. Navigate to the infrastructure directory and build the AWS container:
+
+    cd Campus-Sync
+    sam build
+
+3. Deploy the backend architecture:
+
+    sam deploy --guided
