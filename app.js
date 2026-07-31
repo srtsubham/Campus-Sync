@@ -30,6 +30,8 @@ function login() {
     let ad = new AmazonCognitoIdentity.AuthenticationDetails({ Username: u, Password: pw });
     let cu = new AmazonCognitoIdentity.CognitoUser({ Username: u, Pool: up });
     
+    cu.setAuthenticationFlowType('USER_PASSWORD_AUTH');
+    
     cu.authenticateUser(ad, {
         onSuccess: function(res) {
             localStorage.setItem("tok", res.getIdToken().getJwtToken());
