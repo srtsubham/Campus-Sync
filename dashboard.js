@@ -1,22 +1,22 @@
-const notices = [
-    { text: "CRITICAL: Semester 8 Final Project Submission Portal Open", url: "https://example.com/portal" },
-    { text: "NOTICE: Technical Training Fee Clearance Mandatory Before Exams", url: "https://example.com/fees" }
+const nt = [
+    { t: "CRITICAL: Semester 8 Final Project Submission Portal Open", l: "https://example.com/portal" },
+    { t: "NOTICE: Technical Training Fee Clearance Mandatory Before Exams", l: "https://example.com/fees" }
 ];
 
-function renderNotices() {
+function rnd() {
     let n = document.getElementById("ntf");
     n.innerHTML = "";
-    notices.forEach(i => {
+    nt.forEach(i => {
         let a = document.createElement("a");
         a.className = "blink";
-        a.href = i.url;
+        a.href = i.l;
         a.target = "_blank";
-        a.innerText = "► " + i.text;
+        a.innerText = "► " + i.t;
         n.appendChild(a);
     });
 }
 
-function getUser() {
+function getU() {
     let t = localStorage.getItem("tok");
     if (!t) {
         window.location.href = "index.html";
@@ -26,46 +26,86 @@ function getUser() {
     return p["cognito:username"] || p["sub"] || "Unknown";
 }
 
-function loadUserData() {
-    let u = getUser();
+function ld() {
+    let u = getU();
     if (!u) return;
     document.getElementById("uid").innerText = u;
 
-    let k = "erp_" + u;
-    let d = JSON.parse(localStorage.getItem(k)) || { mks: [], bks: [], tr: 0, tech: 0 };
+    let k = "erp" + u;
+    let d = JSON.parse(localStorage.getItem(k)) || { mks: [], bks: [], tr: [], tc: [] };
+
+    if (!Array.isArray(d.tr)) d.tr = [];
+    if (d.tech) { d.tc = []; delete d.tech; }
+    if (!Array.isArray(d.tc)) d.tc = [];
+    
+    if (d.bks.length > 0 && typeof d.bks[0] === 'string') {
+        let nb = [];
+        for (let i = 0; i < d.bks.length; i++) {
+            nb.push({ n: d.bks[i], dt: "Legacy Entry" });
+        }
+        d.bks = nb;
+        localStorage.setItem(k, JSON.stringify(d));
+    }
+
+    let ltr = d.tr.length > 0 ? d.tr[d.tr.length - 1].tot : 0;
+    let ltc = d.tc.length > 0 ? d.tc[d.tc.length - 1].tot : 0;
 
     document.getElementById("stMks").innerText = "Subjects Logged: " + d.mks.length;
     document.getElementById("stBk").innerText = "Books Issued: " + d.bks.length;
-    document.getElementById("stTr").innerText = "Transport Fee: " + (d.tr > 0 ? "INR " + d.tr : "N/A");
-    document.getElementById("stTech").innerText = "Technical Fee: " + (d.tech > 0 ? "INR " + d.tech : "N/A");
+    document.getElementById("stTr").innerText = "Transport Fee: INR " + ltr;
+    document.getElementById("stTech").innerText = "Technical Fee: INR " + ltc;
 
-    let tbM = document.getElementById("tbMks");
-    tbM.innerHTML = "";
+    let tm = document.getElementById("tbMks");
+    tm.innerHTML = "";
     if (d.mks.length === 0) {
-        tbM.innerHTML = '<tr><td colspan="3" style="text-align:center">No academic records found.</td></tr>';
+        tm.innerHTML = '<tr><td colspan="3" style="text-align:center">No academic records.</td></tr>';
     } else {
         d.mks.forEach(i => {
             let tr = document.createElement("tr");
             tr.innerHTML = `<td>${i.sem}</td><td>${i.sub}</td><td>${i.mks}/100</td>`;
-            tbM.appendChild(tr);
+            tm.appendChild(tr);
         });
     }
 
-    let tbB = document.getElementById("tbBk");
-    tbB.innerHTML = "";
+    let tb = document.getElementById("tbBk");
+    tb.innerHTML = "";
     if (d.bks.length === 0) {
-        tbB.innerHTML = '<tr><td colspan="2" style="text-align:center">No books issued.</td></tr>';
+        tb.innerHTML = '<tr><td colspan="3" style="text-align:center">No books issued.</td></tr>';
     } else {
         d.bks.forEach(i => {
             let tr = document.createElement("tr");
-            tr.innerHTML = `<td>${i}</td><td>Issued</td>`;
-            tbB.appendChild(tr);
+            tr.innerHTML = `<td>${i.n}</td><td>${i.dt}</td><td>Issued</td>`;
+            tb.appendChild(tr);
+        });
+    }
+
+    let tt = document.getElementById("tbTr");
+    tt.innerHTML = "";
+    if (d.tr.length === 0) {
+        tt.innerHTML = '<tr><td colspan="3" style="text-align:center">No transport fee records.</td></tr>';
+    } else {
+        d.tr.forEach(i => {
+            let tr = document.createElement("tr");
+            tr.innerHTML = `<td>INR ${i.amt}</td><td>INR ${i.tot}</td><td>${i.dt}</td>`;
+            tt.appendChild(tr);
+        });
+    }
+
+    let tc = document.getElementById("tbTc");
+    tc.innerHTML = "";
+    if (d.tc.length === 0) {
+        tc.innerHTML = '<tr><td colspan="3" style="text-align:center">No technical fee records.</td></tr>';
+    } else {
+        d.tc.forEach(i => {
+            let tr = document.createElement("tr");
+            tr.innerHTML = `<td>INR ${i.amt}</td><td>INR ${i.tot}</td><td>${i.dt}</td>`;
+            tc.appendChild(tr);
         });
     }
 }
 
-function addMarks() {
-    let u = getUser();
+function addM() {
+    let u = getU();
     if (!u) return;
     let s = document.getElementById("sem").value;
     let sb = document.getElementById("sub").value;
@@ -73,42 +113,75 @@ function addMarks() {
 
     if (!sb || !m) return;
 
-    let k = "erp_" + u;
-    let d = JSON.parse(localStorage.getItem(k)) || { mks: [], bks: [], tr: 0, tech: 0 };
+    let k = "erp" + u;
+    let d = JSON.parse(localStorage.getItem(k)) || { mks: [], bks: [], tr: [], tc: [] };
 
     d.mks.push({ sem: s, sub: sb, mks: m });
     localStorage.setItem(k, JSON.stringify(d));
 
     document.getElementById("sub").value = "";
     document.getElementById("mks").value = "";
-
-    loadUserData();
+    ld();
 }
 
-function addAdminData() {
-    let u = getUser();
+function addB() {
+    let u = getU();
     if (!u) return;
     let b = document.getElementById("bk").value;
-    let tr = document.getElementById("trFee").value;
-    let te = document.getElementById("techFee").value;
+    if (!b) return;
 
-    let k = "erp_" + u;
-    let d = JSON.parse(localStorage.getItem(k)) || { mks: [], bks: [], tr: 0, tech: 0 };
+    let k = "erp" + u;
+    let d = JSON.parse(localStorage.getItem(k)) || { mks: [], bks: [], tr: [], tc: [] };
 
-    if (b) d.bks.push(b);
-    if (tr) d.tr = tr;
-    if (te) d.tech = te;
-
+    let dt = new Date().toLocaleString();
+    d.bks.push({ n: b, dt: dt });
     localStorage.setItem(k, JSON.stringify(d));
 
     document.getElementById("bk").value = "";
-    document.getElementById("trFee").value = "";
-    document.getElementById("techFee").value = "";
+    ld();
+}
 
-    loadUserData();
+function addTr() {
+    let u = getU();
+    if (!u) return;
+    let a = parseFloat(document.getElementById("tr").value);
+    if (isNaN(a) || a <= 0) return;
+
+    let k = "erp" + u;
+    let d = JSON.parse(localStorage.getItem(k)) || { mks: [], bks: [], tr: [], tc: [] };
+
+    let lt = d.tr.length > 0 ? d.tr[d.tr.length - 1].tot : 0;
+    let nt = lt + a;
+    let dt = new Date().toLocaleString();
+
+    d.tr.push({ amt: a, tot: nt, dt: dt });
+    localStorage.setItem(k, JSON.stringify(d));
+
+    document.getElementById("tr").value = "";
+    ld();
+}
+
+function addTc() {
+    let u = getU();
+    if (!u) return;
+    let a = parseFloat(document.getElementById("tc").value);
+    if (isNaN(a) || a <= 0) return;
+
+    let k = "erp" + u;
+    let d = JSON.parse(localStorage.getItem(k)) || { mks: [], bks: [], tr: [], tc: [] };
+
+    let lt = d.tc.length > 0 ? d.tc[d.tc.length - 1].tot : 0;
+    let nt = lt + a;
+    let dt = new Date().toLocaleString();
+
+    d.tc.push({ amt: a, tot: nt, dt: dt });
+    localStorage.setItem(k, JSON.stringify(d));
+
+    document.getElementById("tc").value = "";
+    ld();
 }
 
 window.onload = function() {
-    renderNotices();
-    loadUserData();
+    rnd();
+    ld();
 };

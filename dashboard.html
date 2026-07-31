@@ -55,7 +55,6 @@ th{color:var(--a);font-weight:600}
 <div class="grid">
 <div class="box">
 <h4>Academic Status</h4>
-<p id="stSem">Semester: Unassigned</p>
 <p id="stMks">Subjects Logged: 0</p>
 </div>
 <div class="box">
@@ -64,8 +63,8 @@ th{color:var(--a);font-weight:600}
 </div>
 <div class="box">
 <h4>Financial Records</h4>
-<p id="stTr">Transport Fee: Unpaid</p>
-<p id="stTech">Technical Fee: Unpaid</p>
+<p id="stTr">Transport Fee: INR 0</p>
+<p id="stTech">Technical Fee: INR 0</p>
 </div>
 </div>
 </div>
@@ -85,17 +84,31 @@ th{color:var(--a);font-weight:600}
 </select>
 <input type="text" id="sub" placeholder="Subject Name">
 <input type="number" id="mks" placeholder="Marks (out of 100)">
-<button onclick="addMarks()">Save Subject Marks</button>
+<button onclick="addM()">Save Subject Marks</button>
 </div>
 </div>
 
 <div class="crd">
-<h3>Feed Administrative Data</h3>
+<h3>Feed Library Data</h3>
 <div style="display:flex;flex-wrap:wrap">
 <input type="text" id="bk" placeholder="Book Title Issued">
-<input type="number" id="trFee" placeholder="Transport Fee (INR)">
-<input type="number" id="techFee" placeholder="Technical Training Fee (INR)">
-<button onclick="addAdminData()">Update Admin Records</button>
+<button onclick="addB()">Update Library Record</button>
+</div>
+</div>
+
+<div class="crd">
+<h3>Feed Transport Fee</h3>
+<div style="display:flex;flex-wrap:wrap">
+<input type="number" id="tr" placeholder="Amount Paid (INR)">
+<button onclick="addTr()">Update Transport Ledger</button>
+</div>
+</div>
+
+<div class="crd">
+<h3>Feed Technical Training Fee</h3>
+<div style="display:flex;flex-wrap:wrap">
+<input type="number" id="tc" placeholder="Amount Paid (INR)">
+<button onclick="addTc()">Update Technical Ledger</button>
 </div>
 </div>
 
@@ -115,10 +128,34 @@ th{color:var(--a);font-weight:600}
 <h3>Your Issued Books</h3>
 <table>
 <thead>
-<tr><th>Book Title</th><th>Status</th></tr>
+<tr><th>Book Title</th><th>Issue Date & Time</th><th>Status</th></tr>
 </thead>
 <tbody id="tbBk">
-<tr><td colspan="2" style="text-align:center">No books issued.</td></tr>
+<tr><td colspan="3" style="text-align:center">No books issued.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="crd">
+<h3>Transport Fee Ledger</h3>
+<table>
+<thead>
+<tr><th>Amount Logged</th><th>Cumulative Total</th><th>Date & Time</th></tr>
+</thead>
+<tbody id="tbTr">
+<tr><td colspan="3" style="text-align:center">No transport fee records.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="crd">
+<h3>Technical Training Fee Ledger</h3>
+<table>
+<thead>
+<tr><th>Amount Logged</th><th>Cumulative Total</th><th>Date & Time</th></tr>
+</thead>
+<tbody id="tbTc">
+<tr><td colspan="3" style="text-align:center">No technical fee records.</td></tr>
 </tbody>
 </table>
 </div>
