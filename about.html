@@ -1,39 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CampusSync | Project Info</title>
 <style>
-:root{--bg:#121212;--glass:rgba(30,30,30,0.6);--border:rgba(255,255,255,0.08);--text:#e0e0e0;--accent:#e67e22;--accent-dim:#a35614;--shadow:0 8px 32px 0 rgba(0,0,0,0.37)}
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
-body{background:var(--bg);color:var(--text);display:flex;min-height:100vh;background-image:radial-gradient(circle at 10% 20%,rgba(230,126,34,0.05) 0,rgba(18,18,18,1) 90%)}
-.sidebar{width:260px;background:var(--glass);backdrop-filter:blur(12px);border-right:1px solid var(--border);padding:30px 20px;display:flex;flex-direction:column}
-.sidebar h2{font-size:1.5rem;font-weight:600;color:var(--text);margin-bottom:40px;text-align:center}
-.sidebar h2 span{color:var(--accent)}
-.sidebar a{color:rgba(224,224,224,0.7);text-decoration:none;padding:12px 16px;border-radius:8px;margin-bottom:8px;font-size:0.95rem;transition:all 0.2s ease}
-.sidebar a:hover,.sidebar a.active{background:rgba(230,126,34,0.15);color:var(--accent)}
-.content{flex:1;padding:40px;overflow-y:auto}
-.card{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:16px;padding:30px;box-shadow:var(--shadow)}
-h3{font-size:1.5rem;font-weight:600;margin-bottom:20px;color:var(--text)}
-p{color:rgba(224,224,224,0.8);font-size:1rem;line-height:1.6;margin-bottom:15px}
+:root{--b:#121212;--g:rgba(30,30,30,0.6);--r:rgba(255,255,255,0.08);--t:#e0e0e0;--a:#e67e22}
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif;cursor:none}
+body{background:var(--b);color:var(--t);display:flex;min-height:100vh;background-image:radial-gradient(circle at 10% 20%,rgba(230,126,34,0.05) 0,var(--b) 90%)}
+.nav{width:260px;background:var(--g);backdrop-filter:blur(12px);border-right:1px solid var(--r);padding:30px 20px;display:flex;flex-direction:column}
+.nav h2{font-size:24px;font-weight:600;color:var(--t);margin-bottom:40px;text-align:center}
+.nav h2 span{color:var(--a)}
+.nav a{color:rgba(224,224,224,0.7);text-decoration:none;padding:12px 16px;border-radius:8px;margin-bottom:8px;font-size:15px;transition:0.2s}
+.nav a:hover,.nav a.act{background:rgba(230,126,34,0.15);color:var(--a)}
+.main{flex:1;padding:40px;overflow-y:auto}
+.crd{background:var(--g);backdrop-filter:blur(12px);border:1px solid var(--r);border-radius:16px;padding:30px;box-shadow:0 8px 32px 0 rgba(0,0,0,0.37);margin-bottom:30px}
+h3{font-size:24px;font-weight:600;margin-bottom:20px;color:var(--t)}
+p{color:rgba(224,224,224,0.8);font-size:15px;line-height:1.6;margin-bottom:15px}
+#ca{width:20px;height:20px;border:2px solid var(--a);border-radius:50%;position:fixed;pointer-events:none;z-index:99;transform:translate(-50%,-50%)}
+#cb{width:6px;height:6px;background:var(--a);border-radius:50%;position:fixed;pointer-events:none;z-index:99;transform:translate(-50%,-50%)}
 </style>
 </head>
 <body>
-<div class="sidebar">
+<div id="ca"></div>
+<div id="cb"></div>
+<div class="nav">
 <h2>Campus<span>Sync</span></h2>
-<a href="index.html">Registration</a>
+<a href="index.html">Authentication</a>
 <a href="dashboard.html">Dashboard</a>
 <a href="analytics.html">Analytics</a>
-<a href="about.html" class="active">Project Info</a>
+<a href="about.html" class="act">Project Info</a>
 <a href="contact.html">Contact Support</a>
 </div>
-<div class="content">
-<div class="card">
+<div class="main">
+<div class="crd">
 <h3>About Authors and Blueprint</h3>
 <p>CampusSync is an enterprise-grade student management framework engineered utilizing a Python FastAPI backend deployed via AWS Lambda container architecture linked with Amazon DynamoDB.</p>
 <p>Engineered and maintained by core development leads Somya and Vikas.</p>
 </div>
 </div>
+<script src="app.js"></script>
 </body>
 </html>

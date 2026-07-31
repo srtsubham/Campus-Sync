@@ -1,43 +1,62 @@
-const API_BASE_URL = "https://hgd7eyusfj.execute-api.ap-south-1.amazonaws.com/Prod";
+document.addEventListener("mousemove", e => {
+    let x = e.clientX;
+    let y = e.clientY;
+    document.getElementById("ca").style.left = x + "px";
+    document.getElementById("ca").style.top = y + "px";
+    document.getElementById("cb").style.left = x + "px";
+    document.getElementById("cb").style.top = y + "px";
+});
 
-async function submitStudentData() {
-    const sId = document.getElementById("studentId").value;
-    const sName = document.getElementById("studentName").value;
-    const sEmail = document.getElementById("studentEmail").value;
-    const sCourse = document.getElementById("studentCourse").value;
+const p = "ap-south-1_t98NCsCga";
+const c = "5jvj3v12i36l2dfkm4odtln9v0";
+const b = "https://hgd7eyusfj.execute-api.ap-south-1.amazonaws.com/Prod";
 
-    if(!sId || !sName || !sEmail || !sCourse) {
-        updateResponseArea({error: "All fields are required"}, true);
-        return;
-    }
+let d = { UserPoolId: p, ClientId: c };
+let up = new AmazonCognitoIdentity.CognitoUserPool(d);
 
-    const payload = {
-        id: sId,
-        name: sName,
-        email: sEmail,
-        course: sCourse
-    };
-
-    try {
-        const response = await fetch(`${API_BASE_URL}/student`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        const result = await response.json();
-        updateResponseArea(result, !response.ok);
-    } catch (error) {
-        updateResponseArea({error: "Network error or API unavailable"}, true);
+function tog(v) {
+    if (v === 1) {
+        document.getElementById("lf").style.display = "none";
+        document.getElementById("rf").style.display = "block";
+    } else {
+        document.getElementById("lf").style.display = "block";
+        document.getElementById("rf").style.display = "none";
     }
 }
 
-function updateResponseArea(data, isError) {
-    const respArea = document.getElementById("response-area");
-    respArea.innerText = JSON.stringify(data, null, 2);
-    respArea.classList.add("visible");
-    respArea.style.borderColor = isError ? "#e74c3c" : "rgba(255,255,255,0.08)";
-    respArea.style.color = isError ? "#e74c3c" : "rgba(224,224,224,0.8)";
+function login() {
+    let u = document.getElementById("u").value;
+    let pw = document.getElementById("p").value;
+    let ad = new AmazonCognitoIdentity.AuthenticationDetails({ Username: u, Password: pw });
+    let cu = new AmazonCognitoIdentity.CognitoUser({ Username: u, Pool: up });
+    
+    cu.authenticateUser(ad, {
+        onSuccess: function(res) {
+            localStorage.setItem("tok", res.getIdToken().getJwtToken());
+            window.location.href = "dashboard.html";
+        },
+        onFailure: function(err) {
+            alert(err.message || JSON.stringify(err));
+        }
+    });
+}
+
+function register() {
+    let ru = document.getElementById("ru").value;
+    let re = document.getElementById("re").value;
+    let rp = document.getElementById("rp").value;
+    
+    let al = [];
+    let ea = { Name: "email", Value: re };
+    let aa = new AmazonCognitoIdentity.CognitoUserAttribute(ea);
+    al.push(aa);
+    
+    up.signUp(ru, rp, al, null, function(err, res) {
+        if (err) {
+            alert(err.message || JSON.stringify(err));
+            return;
+        }
+        alert("Record created successfully. Return to access to authenticate.");
+        tog(0);
+    });
 }

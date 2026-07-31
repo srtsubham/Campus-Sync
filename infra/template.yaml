@@ -7,8 +7,31 @@ Globals:
       AllowMethods: "'*'"
       AllowHeaders: "'*'"
       AllowOrigin: "'*'"
+    Auth:
+      DefaultAuthorizer: Z
+      Authorizers:
+        Z:
+          UserPoolArn: !GetAtt U.Arn
 
 Resources:
+  U:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: CampusSyncUsers
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+
+  C:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        UserPoolId: !Ref U
+        ClientName: CampusSyncApp
+        GenerateSecret: false
+        ExplicitAuthFlows:
+          - ALLOW_USER_PASSWORD_AUTH
+          - ALLOW_REFRESH_TOKEN_AUTH
+
   StudentTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
