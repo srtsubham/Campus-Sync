@@ -55,15 +55,26 @@ function ld() {
     document.getElementById("stTr").innerText = "Transport Fee: INR " + ltr;
     document.getElementById("stTech").innerText = "Technical Fee: INR " + ltc;
 
-    let tm = document.getElementById("tbMks");
-    tm.innerHTML = "";
+    let am = 0;
+    let tm = 0;
+    if (d.mks.length > 0) {
+        d.mks.forEach(i => { tm += parseFloat(i.mks); });
+        am = (tm / d.mks.length).toFixed(2);
+    }
+    
+    document.getElementById("avgMks").innerText = am + "%";
+    document.getElementById("totBk").innerText = d.bks.length + " Books";
+    document.getElementById("totExp").innerText = "INR " + (ltr + ltc);
+
+    let tms = document.getElementById("tbMks");
+    tms.innerHTML = "";
     if (d.mks.length === 0) {
-        tm.innerHTML = '<tr><td colspan="3" style="text-align:center">No academic records.</td></tr>';
+        tms.innerHTML = '<tr><td colspan="3" style="text-align:center">No academic records.</td></tr>';
     } else {
         d.mks.forEach(i => {
             let tr = document.createElement("tr");
             tr.innerHTML = `<td>${i.sem}</td><td>${i.sub}</td><td>${i.mks}/100</td>`;
-            tm.appendChild(tr);
+            tms.appendChild(tr);
         });
     }
 
