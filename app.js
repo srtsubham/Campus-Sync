@@ -1,15 +1,142 @@
-let cr = document.getElementById("c");
+let gl = document.getElementById("cGlow");
+let mx = 0, my = 0;
 
 document.addEventListener("mousemove", e => {
-    cr.style.left = e.clientX + "px";
-    cr.style.top = e.clientY + "px";
+    mx = e.clientX;
+    my = e.clientY;
+    if (gl) {
+        gl.style.left = mx + "px";
+        gl.style.top = my + "px";
+    }
+
+    let le = document.getElementById("l-eye-l");
+    let re = document.getElementById("l-eye-r");
+    if (le && re) {
+        let rc = document.getElementById("svgLock").getBoundingClientRect();
+        let cx = rc.left + rc.width / 2;
+        let cy = rc.top + rc.height / 2;
+        let dx = mx - cx;
+        let dy = my - cy;
+        let an = Math.atan2(dy, dx);
+        let ox = Math.cos(an) * 4;
+        let oy = Math.sin(an) * 4;
+        le.setAttribute("cx", 35 + ox);
+        le.setAttribute("cy", 65 + oy);
+        re.setAttribute("cx", 65 + ox);
+        re.setAttribute("cy", 65 + oy);
+    }
 });
 
-document.addEventListener("mousedown", () => cr.classList.add("clk"));
-document.addEventListener("mouseup", () => cr.classList.remove("clk"));
+document.addEventListener("mousedown", () => {
+    let lh = document.getElementById("l-teeth");
+    let lm = document.getElementById("l-mouth");
+    let le = document.getElementById("l-eye-l");
+    let re = document.getElementById("l-eye-r");
+    if(lh && lm && le && re && !document.getElementById("svgLock").classList.contains("lckd")) {
+        lh.style.opacity = "1";
+        lm.setAttribute("d", "M 35 78 Q 50 100 65 78");
+        le.setAttribute("ry", "8");
+        re.setAttribute("ry", "8");
+    }
+});
 
-function ts() { 
-    document.getElementById("nb").classList.toggle("sh"); 
+document.addEventListener("mouseup", () => {
+    let lh = document.getElementById("l-teeth");
+    let lm = document.getElementById("l-mouth");
+    let le = document.getElementById("l-eye-l");
+    let re = document.getElementById("l-eye-r");
+    if(lh && lm && le && re && !document.getElementById("svgLock").classList.contains("lckd")) {
+        lh.style.opacity = "0";
+        lm.setAttribute("d", "M 35 80 Q 50 95 65 80");
+        le.setAttribute("ry", "5");
+        re.setAttribute("ry", "5");
+    }
+});
+
+function ts() { document.getElementById("nb").classList.toggle("sh"); }
+
+function cp() {
+    let pt = document.getElementById("pdt");
+    if(pt) {
+        if(localStorage.getItem("tok")) {
+            pt.className = "pdot grn";
+            let f = document.getElementById("l-face");
+            let s = document.getElementById("l-shack");
+            let b = document.getElementById("l-body");
+            let l = document.getElementById("svgLock");
+            if(f) f.style.opacity = "0";
+            if(s) {
+                s.setAttribute("d", "M 30 50 V 30 A 20 20 0 0 1 70 30 V 50");
+                s.setAttribute("stroke", "#00C851");
+            }
+            if(b) {
+                b.setAttribute("fill", "#00C851");
+                b.setAttribute("stroke", "#00C851");
+            }
+            if(l) {
+                l.classList.add("lckd");
+                l.style.filter = "drop-shadow(0 0 30px rgba(0,200,81,0.6))";
+            }
+        }
+        else pt.className = "pdot red";
+    }
+}
+
+let obs = new IntersectionObserver((es) => {
+    es.forEach(e => {
+        if(e.isIntersecting) {
+            e.target.classList.add('vis');
+            obs.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.pcard').forEach(p => {
+    obs.observe(p);
+    p.addEventListener('mousemove', e => {
+        let r = p.getBoundingClientRect();
+        let x = e.clientX - r.left - r.width / 2;
+        let y = e.clientY - r.top - r.height / 2;
+        p.style.transform = `perspective(1000px) rotateY(${x / 15}deg) rotateX(${-y / 15}deg) translateY(-5px)`;
+        p.style.boxShadow = `0 20px 40px rgba(230,126,34,0.2)`;
+    });
+    p.addEventListener('mouseleave', () => {
+        p.style.transform = `perspective(1000px) rotateY(0) rotateX(0) translateY(0)`;
+        p.style.boxShadow = `0 10px 30px rgba(0,0,0,0.5)`;
+    });
+});
+
+const bd = [
+    { t: "Node Alpha", d: "Metrics Active and routing optimal.", i: "IMG_A_NULL" },
+    { t: "Node Beta", d: "Database synchronized natively.", i: "IMG_B_NULL" },
+    { t: "Node Gamma", d: "API connections stable.", i: "IMG_C_NULL" },
+    { t: "Node Delta", d: "Cache optimization complete.", i: "IMG_D_NULL" },
+    { t: "Node Epsilon", d: "Auth secured properly.", i: "IMG_E_NULL" },
+    { t: "Node Zeta", d: "Routing layers clear.", i: "IMG_F_NULL" },
+    { t: "Node Eta", d: "Logs verified completely.", i: "IMG_G_NULL" }
+];
+let bI = 0;
+
+function rdB() {
+    let fb = document.getElementById("fbn");
+    if(!fb) return;
+    fb.style.opacity = 0;
+    setTimeout(() => {
+        document.getElementById("fb-h").innerText = bd[bI].t;
+        document.getElementById("fb-p").innerText = bd[bI].d;
+        document.getElementById("fb-i").innerText = bd[bI].i;
+        fb.style.opacity = 1;
+    }, 400);
+}
+
+function nxtB() { bI = (bI + 1) % bd.length; rdB(); }
+function prvB() { bI = (bI - 1 + bd.length) % bd.length; rdB(); }
+
+let aSld = setInterval(nxtB, 4000);
+let bwp = document.querySelector('.fbnnr-wrap');
+if(bwp) {
+    bwp.addEventListener('mouseenter', () => clearInterval(aSld));
+    bwp.addEventListener('mouseleave', () => aSld = setInterval(nxtB, 4000));
 }
 
 const p = "ap-south-1_t98NCsCga";
@@ -20,32 +147,83 @@ let d = { UserPoolId: p, ClientId: c };
 let up = new AmazonCognitoIdentity.CognitoUserPool(d);
 
 function tog(v) {
+    let lf = document.getElementById("lf");
+    let rf = document.getElementById("rf");
+    if(!lf || !rf) return;
     if (v === 1) {
-        document.getElementById("lf").style.display = "none";
-        document.getElementById("rf").style.display = "block";
+        lf.style.display = "none";
+        rf.style.display = "block";
     } else {
-        document.getElementById("lf").style.display = "block";
-        document.getElementById("rf").style.display = "none";
+        lf.style.display = "block";
+        rf.style.display = "none";
     }
 }
 
 function login() {
     let u = document.getElementById("u").value;
     let pw = document.getElementById("p").value;
+
+    if (!u || !pw) {
+        alert("Enter credentials to sync.");
+        return;
+    }
+
     let ad = new AmazonCognitoIdentity.AuthenticationDetails({ Username: u, Password: pw });
     let cu = new AmazonCognitoIdentity.CognitoUser({ Username: u, Pool: up });
     
     cu.setAuthenticationFlowType('USER_PASSWORD_AUTH');
     
-    cu.authenticateUser(ad, {
-        onSuccess: function(res) {
-            localStorage.setItem("tok", res.getIdToken().getJwtToken());
-            window.location.href = "dashboard.html";
-        },
-        onFailure: function(err) {
-            alert(err.message || JSON.stringify(err));
+    document.body.classList.add("auth-animating");
+    let key = document.getElementById("svgKey");
+    let lock = document.getElementById("svgLock");
+    let face = document.getElementById("l-face");
+    let shack = document.getElementById("l-shack");
+    let body = document.getElementById("l-body");
+
+    if(key) key.classList.add("key-orb");
+
+    setTimeout(() => {
+        if(shack) {
+            shack.setAttribute("d", "M 30 50 V 30 A 20 20 0 0 1 70 30 V 50");
+            shack.setAttribute("stroke", "#00C851");
         }
-    });
+        if(face) face.style.opacity = "0";
+        if(body) {
+            body.setAttribute("fill", "#00C851");
+            body.setAttribute("stroke", "#00C851");
+        }
+        if(lock) {
+            lock.classList.add("lckd");
+            lock.style.filter = "drop-shadow(0 0 30px rgba(0,200,81,0.6))";
+        }
+
+        cu.authenticateUser(ad, {
+            onSuccess: function(res) {
+                localStorage.setItem("tok", res.getIdToken().getJwtToken());
+                setTimeout(() => { window.location.href = "dashboard.html"; }, 1000);
+            },
+            onFailure: function(err) {
+                setTimeout(() => {
+                    document.body.classList.remove("auth-animating");
+                    if(key) key.classList.remove("key-orb");
+                    if(shack) {
+                        shack.setAttribute("d", "M 30 50 V 30 A 20 20 0 0 1 70 30 V 40");
+                        shack.setAttribute("stroke", "#fff");
+                    }
+                    if(face) face.style.opacity = "1";
+                    if(body) {
+                        body.setAttribute("fill", "rgba(0,0,0,0.8)");
+                        body.setAttribute("stroke", "#fff");
+                    }
+                    if(lock) {
+                        lock.classList.remove("lckd");
+                        lock.style.filter = "drop-shadow(0 0 20px rgba(255,255,255,0.4))";
+                    }
+                    alert(err.message || JSON.stringify(err));
+                }, 1000);
+            }
+        });
+    }, 1500);
 }
 
 function register() {
@@ -68,29 +246,22 @@ function register() {
     });
 }
 
-window.addEventListener("scroll", () => {
-    let hd = document.getElementById("head");
-    let ft = document.getElementById("foot");
-    let stc = document.getElementById("stc");
-    let txt = document.getElementById("stxt");
-
-    if (stc && hd && ft && txt) {
-        let rect = stc.getBoundingClientRect();
-        let wh = window.innerHeight;
-
-        if (rect.top < wh * 0.7 && rect.bottom > wh * 0.3) {
-            hd.style.transform = "translateY(-100%)";
-            ft.style.transform = "translateY(100%)";
-            document.getElementById("nb").classList.remove("sh");
-        } else {
-            hd.style.transform = "translateY(0)";
-            ft.style.transform = "translateY(0)";
-        }
-
-        let full = txt.getAttribute("data-full");
-        let prog = (wh - rect.top) / (wh + rect.height);
-        prog = Math.max(0, Math.min(1, prog));
-        let chars = Math.floor(prog * full.length);
-        txt.innerText = full.substring(0, chars);
+function sbK() {
+    let iv = document.getElementById("hsbi").value.toLowerCase();
+    let sg = document.getElementById("sbg");
+    if(iv.length > 0) {
+        sg.style.display = "flex";
+        sg.innerHTML = `
+            <div onclick="location.href='index.html'">Dashboard / Home - ${iv}</div>
+            <div onclick="location.href='analytics.html'">System Metrics - ${iv}</div>
+            <div onclick="location.href='contact.html'">Support - ${iv}</div>
+        `;
+    } else {
+        sg.style.display = "none";
     }
-});
+}
+
+window.onload = function() {
+    cp();
+    rdB();
+};

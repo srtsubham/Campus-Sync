@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CampusSync | Contact Support</title>
+<title>CampusSync | User Profile</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
 </head>
@@ -16,7 +16,7 @@
 <a href="index.html">Home</a>
 <a href="https://bbdu.ac.in/" target="_blank">MyBBD</a>
 <a href="index.html#auth-sec">Documents</a>
-<a href="profile.html">My Profile<span class="pdot" id="pdt"></span></a>
+<a href="profile.html" class="act">My Profile<span class="pdot" id="pdt"></span></a>
 <div class="h-srch-box">
 <input type="text" id="hsbi" placeholder="Find anything here..." onkeyup="sbK()">
 <div class="sug" id="sbg"></div>
@@ -30,22 +30,21 @@
 <a href="dashboard.html">Dashboard</a>
 <a href="analytics.html">Analytics</a>
 <a href="about.html">Architecture</a>
-<a href="contact.html" class="act">Support Desk</a>
+<a href="contact.html">Support Desk</a>
 </div>
 
 <div class="main">
 <div class="cnt cdf">
 <div class="crd" style="max-width:900px;margin:0 auto;width:100%">
-<h3 style="text-align:center">Administrative Support Desk</h3>
-<p style="text-align:center;margin-bottom:30px">All infrastructure override requests are securely routed to: <strong>somyar.tripathi@gmail.com</strong></p>
+<h3 style="text-align:center;margin-bottom:30px">Profile Configuration</h3>
 <div class="fm">
-<input type="text" id="cn" placeholder="Authorized Full Name">
-<input type="email" id="ce" placeholder="Registered Node Email Address">
-<input type="text" id="cs" placeholder="Incident Subject">
-<textarea id="cm" placeholder="Detailed Diagnostic Message"></textarea>
-<button onclick="subC()">Transmit Secure Request</button>
+<button onclick="alert('Password retrieval link dispatched to authenticated node.')" style="background:#555;color:#fff;border:1px solid var(--a)">Initialize Password Retrieval</button>
+<input type="email" placeholder="Secondary Communication Email (Optional)">
+<input type="text" placeholder="Mobile / Telephone Contact (Optional)">
+<input type="text" placeholder="University Assigned Roll Number (Optional)">
+<textarea placeholder="Extra Curricular Operations & Activities (Optional)" style="height:120px"></textarea>
+<button onclick="alert('Profile Configuration Saved Natively.')">Synchronize Profile Data</button>
 </div>
-<p id="cmsg" class="lnk"></p>
 </div>
 </div>
 <div class="f" id="foot">
@@ -59,18 +58,5 @@
 </div>
 </div>
 <script src="app.js"></script>
-<script>
-function subC() {
-    let n = document.getElementById("cn").value;
-    let m = document.getElementById("cm").value;
-    if (!n || !m) return;
-    document.getElementById("cmsg").innerText = "Data packet securely transmitted to somyar.tripathi@gmail.com.";
-    setTimeout(() => document.getElementById("cmsg").innerText = "", 4000);
-    document.getElementById("cn").value = "";
-    document.getElementById("ce").value = "";
-    document.getElementById("cs").value = "";
-    document.getElementById("cm").value = "";
-}
-</script>
 </body>
 </html>
