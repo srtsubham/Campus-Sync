@@ -13,12 +13,21 @@ document.addEventListener("mousemove", e => {
         let cx = rc.left + rc.width / 2;
         let cy = rc.top + rc.height / 2;
         let an = Math.atan2(e.clientY - cy, e.clientX - cx);
-        let ox = Math.cos(an) * 4;
-        let oy = Math.sin(an) * 4;
-        le.setAttribute("cx", 35 + ox);
-        le.setAttribute("cy", 70 + oy);
-        re.setAttribute("cx", 65 + ox);
-        re.setAttribute("cy", 70 + oy);
+        let ox = Math.cos(an) * 5;
+        let oy = Math.sin(an) * 5;
+        le.setAttribute("cx", 30 + ox);
+        le.setAttribute("cy", 65 + oy);
+        re.setAttribute("cx", 70 + ox);
+        re.setAttribute("cy", 65 + oy);
+    }
+
+    let btn = document.querySelector('.syncBtn');
+    if (btn) {
+        let br = btn.getBoundingClientRect();
+        let bx = br.left + br.width / 2;
+        let by = br.top + br.height / 2;
+        let ang = Math.atan2(e.clientX - bx, by - e.clientY) * (180 / Math.PI);
+        btn.style.setProperty('--wave-deg', ang + 'deg');
     }
 });
 
@@ -29,7 +38,7 @@ document.addEventListener("mousedown", () => {
     let re = document.getElementById("lEyeR");
     if(lh && lm && le && re && !document.getElementById("svgLock").classList.contains("lckd")) {
         lh.style.opacity = "1";
-        lm.setAttribute("d", "M 35 78 Q 50 100 65 78");
+        lm.setAttribute("d", "M 30 85 Q 50 110 70 85");
         le.setAttribute("ry", "7");
         re.setAttribute("ry", "7");
     }
@@ -42,7 +51,7 @@ document.addEventListener("mouseup", () => {
     let re = document.getElementById("lEyeR");
     if(lh && lm && le && re && !document.getElementById("svgLock").classList.contains("lckd")) {
         lh.style.opacity = "0";
-        lm.setAttribute("d", "M 35 80 Q 50 95 65 80");
+        lm.setAttribute("d", "M 30 88 Q 50 105 70 88");
         le.setAttribute("ry", "5");
         re.setAttribute("ry", "5");
     }
@@ -79,7 +88,7 @@ function cp() {
                 l.style.filter = "drop-shadow(0 0 30px rgba(0,200,81,0.6))";
             }
             if(key) {
-                key.style.transform = "translate(-100px, 30px) rotate(-90deg)";
+                key.style.transform = "translate(-320px, 100px) rotate(-90deg)";
                 key.style.opacity = "0";
             }
         } else {
@@ -215,7 +224,7 @@ function login() {
                     }
                     if(face) face.style.opacity = "1";
                     if(body) {
-                        body.setAttribute("fill", "rgba(0,0,0,0.8)");
+                        body.setAttribute("fill", "#050201");
                         body.setAttribute("stroke", "#fff");
                     }
                     if(lock) {

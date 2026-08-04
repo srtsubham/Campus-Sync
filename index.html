@@ -45,23 +45,20 @@
 <div class="authBnr" id="authSec">
 <div class="authWrap">
 <div class="authL">
-<svg id="svgLock" viewBox="-20 -20 140 140" style="width:250px; filter:drop-shadow(0 0 20px rgba(255,255,255,0.4)); transition: filter 0.4s, transform 0.3s; z-index:2; position:relative">
+<div class="authLInner">
+<svg id="svgLock" viewBox="-20 -20 140 140" style="width:300px; height:300px; filter:drop-shadow(0 0 20px rgba(255,255,255,0.4)); transition: filter 0.4s, transform 0.3s; z-index:2; position:relative">
 <path id="lShack" d="M 30 50 V 30 A 20 20 0 0 1 70 30 V 40" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" style="transition:0.4s"/>
-<rect id="lBody" x="10" y="50" width="80" height="60" rx="10" fill="rgba(0,0,0,0.8)" stroke="#fff" stroke-width="4" style="transition:0.4s"/>
+<rect id="lBody" x="10" y="50" width="80" height="60" rx="10" fill="#050201" stroke="#fff" stroke-width="4" style="transition:0.4s"/>
 <g id="lFace" style="transition:0.3s">
-<ellipse id="lEyeL" cx="35" cy="70" rx="5" ry="5" fill="#fff" style="transition:0.2s"/>
-<ellipse id="lEyeR" cx="65" cy="70" rx="5" ry="5" fill="#fff" style="transition:0.2s"/>
-<path id="lMouth" d="M 35 80 Q 50 95 65 80" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" style="transition:0.2s"/>
-<path id="lTeeth" d="M 40 82 Q 50 88 60 82" fill="#fff" opacity="0" style="transition:0.2s"/>
+<ellipse id="lEyeL" cx="30" cy="65" rx="5" ry="5" fill="#fff" style="transition:0.2s"/>
+<ellipse id="lEyeR" cx="70" cy="65" rx="5" ry="5" fill="#fff" style="transition:0.2s"/>
+<path id="lMouth" d="M 30 88 Q 50 105 70 88" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" style="transition:0.2s"/>
+<path id="lTeeth" d="M 35 90 Q 50 96 65 90" fill="#fff" opacity="0" style="transition:0.2s"/>
 </g>
 </svg>
-<svg id="svgKey" viewBox="0 0 100 200" style="position:absolute; right:-90px; top:10px; height:180px; filter:drop-shadow(0 0 15px rgba(255,255,255,0.4)); z-index:3; transition: transform 1.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s;">
-<circle cx="50" cy="160" r="20" fill="none" stroke="#fff" stroke-width="10"/>
-<line x1="50" y1="140" x2="50" y2="20" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
-<line x1="50" y1="50" x2="80" y2="50" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
-<line x1="50" y1="80" x2="80" y2="80" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
-</svg>
 </div>
+</div>
+<div class="authRBox">
 <div class="authR" id="lf">
 <h3>System Access</h3>
 <input type="text" id="u" placeholder="Username or Email">
@@ -77,6 +74,7 @@
 <input type="password" id="rp" placeholder="Password">
 <button class="syncBtn" onclick="register()">SYNC IN</button>
 <span class="lnk" onclick="tog(0)">Already registered? Sync in.</span>
+</div>
 </div>
 </div>
 </div>
