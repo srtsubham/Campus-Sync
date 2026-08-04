@@ -11,7 +11,7 @@ document.addEventListener("mousemove", e => {
 
     let le = document.getElementById("l-eye-l");
     let re = document.getElementById("l-eye-r");
-    if (le && re) {
+    if (le && re && !document.getElementById("svgLock").classList.contains("lckd")) {
         let rc = document.getElementById("svgLock").getBoundingClientRect();
         let cx = rc.left + rc.width / 2;
         let cy = rc.top + rc.height / 2;
@@ -21,9 +21,18 @@ document.addEventListener("mousemove", e => {
         let ox = Math.cos(an) * 4;
         let oy = Math.sin(an) * 4;
         le.setAttribute("cx", 35 + ox);
-        le.setAttribute("cy", 65 + oy);
+        le.setAttribute("cy", 70 + oy);
         re.setAttribute("cx", 65 + ox);
-        re.setAttribute("cy", 65 + oy);
+        re.setAttribute("cy", 70 + oy);
+    }
+
+    let btn = document.querySelector('.sync-btn');
+    if (btn) {
+        let br = btn.getBoundingClientRect();
+        let bx = br.left + br.width / 2;
+        let by = br.top + br.height / 2;
+        let ang = Math.atan2(mx - bx, by - my) * (180 / Math.PI);
+        btn.style.setProperty('--wave-deg', ang + 'deg');
     }
 });
 
@@ -35,8 +44,8 @@ document.addEventListener("mousedown", () => {
     if(lh && lm && le && re && !document.getElementById("svgLock").classList.contains("lckd")) {
         lh.style.opacity = "1";
         lm.setAttribute("d", "M 35 78 Q 50 100 65 78");
-        le.setAttribute("ry", "8");
-        re.setAttribute("ry", "8");
+        le.setAttribute("ry", "7");
+        re.setAttribute("ry", "7");
     }
 });
 
@@ -64,6 +73,7 @@ function cp() {
             let s = document.getElementById("l-shack");
             let b = document.getElementById("l-body");
             let l = document.getElementById("svgLock");
+            let key = document.getElementById("svgKey");
             if(f) f.style.opacity = "0";
             if(s) {
                 s.setAttribute("d", "M 30 50 V 30 A 20 20 0 0 1 70 30 V 50");
@@ -76,6 +86,10 @@ function cp() {
             if(l) {
                 l.classList.add("lckd");
                 l.style.filter = "drop-shadow(0 0 30px rgba(0,200,81,0.6))";
+            }
+            if(key) {
+                key.style.transform = "translate(-140px, 50px) rotate(-90deg)";
+                key.style.opacity = "0";
             }
         }
         else pt.className = "pdot red";
@@ -97,12 +111,14 @@ document.querySelectorAll('.pcard').forEach(p => {
         let r = p.getBoundingClientRect();
         let x = e.clientX - r.left - r.width / 2;
         let y = e.clientY - r.top - r.height / 2;
-        p.style.transform = `perspective(1000px) rotateY(${x / 15}deg) rotateX(${-y / 15}deg) translateY(-5px)`;
+        p.style.transform = `perspective(1000px) rotateY(${x / 20}deg) rotateX(${-y / 20}deg) translateY(-5px)`;
         p.style.boxShadow = `0 20px 40px rgba(230,126,34,0.2)`;
+        p.style.zIndex = 10;
     });
     p.addEventListener('mouseleave', () => {
         p.style.transform = `perspective(1000px) rotateY(0) rotateX(0) translateY(0)`;
         p.style.boxShadow = `0 10px 30px rgba(0,0,0,0.5)`;
+        p.style.zIndex = 1;
     });
 });
 
@@ -132,11 +148,11 @@ function rdB() {
 function nxtB() { bI = (bI + 1) % bd.length; rdB(); }
 function prvB() { bI = (bI - 1 + bd.length) % bd.length; rdB(); }
 
-let aSld = setInterval(nxtB, 4000);
+let aSld = setInterval(nxtB, 5000);
 let bwp = document.querySelector('.fbnnr-wrap');
 if(bwp) {
     bwp.addEventListener('mouseenter', () => clearInterval(aSld));
-    bwp.addEventListener('mouseleave', () => aSld = setInterval(nxtB, 4000));
+    bwp.addEventListener('mouseleave', () => aSld = setInterval(nxtB, 5000));
 }
 
 const p = "ap-south-1_t98NCsCga";
@@ -162,11 +178,6 @@ function tog(v) {
 function login() {
     let u = document.getElementById("u").value;
     let pw = document.getElementById("p").value;
-
-    if (!u || !pw) {
-        alert("Enter credentials to sync.");
-        return;
-    }
 
     let ad = new AmazonCognitoIdentity.AuthenticationDetails({ Username: u, Password: pw });
     let cu = new AmazonCognitoIdentity.CognitoUser({ Username: u, Pool: up });
