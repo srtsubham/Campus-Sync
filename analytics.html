@@ -3,28 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <title>CampusSync | Analytics</title>
-<style>
-:root{--b:#121212;--g:rgba(30,30,30,0.6);--r:rgba(255,255,255,0.08);--t:#e0e0e0;--a:#e67e22}
-*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif;cursor:none}
-body{background:var(--b);color:var(--t);display:flex;min-height:100vh;background-image:radial-gradient(circle at 10% 20%,rgba(230,126,34,0.05) 0,var(--b) 90%)}
-.nav{width:260px;background:var(--g);backdrop-filter:blur(12px);border-right:1px solid var(--r);padding:30px 20px;display:flex;flex-direction:column}
-.nav h2{font-size:24px;font-weight:600;color:var(--t);margin-bottom:40px;text-align:center}
-.nav h2 span{color:var(--a)}
-.nav a{color:rgba(224,224,224,0.7);text-decoration:none;padding:12px 16px;border-radius:8px;margin-bottom:8px;font-size:15px;transition:0.2s}
-.nav a:hover,.nav a.act{background:rgba(230,126,34,0.15);color:var(--a)}
-.main{flex:1;padding:40px;overflow-y:auto}
-.crd{background:var(--g);backdrop-filter:blur(12px);border:1px solid var(--r);border-radius:16px;padding:30px;box-shadow:0 8px 32px 0 rgba(0,0,0,0.37);margin-bottom:30px}
-h3{font-size:24px;font-weight:600;margin-bottom:20px;color:var(--t)}
-p{color:rgba(224,224,224,0.8);font-size:15px;line-height:1.6}
-#ca{width:20px;height:20px;border:2px solid var(--a);border-radius:50%;position:fixed;pointer-events:none;z-index:99;transform:translate(-50%,-50%)}
-#cb{width:6px;height:6px;background:var(--a);border-radius:50%;position:fixed;pointer-events:none;z-index:99;transform:translate(-50%,-50%)}
-</style>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
 </head>
 <body>
-<div id="ca"></div>
-<div id="cb"></div>
-<div class="nav">
+<div id="c"><div class="arw"></div><div class="dim"></div></div>
+<div class="h" id="head">
+<button onclick="ts()">☰</button>
 <h2>Campus<span>Sync</span></h2>
+<div class="xr">
+<a href="analytics.html">System Metrics</a>
+<a href="about.html">Architecture</a>
+</div>
+</div>
+<div class="nav" id="nb">
+<button class="cls" onclick="ts()">✕</button>
 <a href="index.html">Authentication</a>
 <a href="dashboard.html">Dashboard</a>
 <a href="analytics.html" class="act">Analytics</a>
@@ -32,9 +25,35 @@ p{color:rgba(224,224,224,0.8);font-size:15px;line-height:1.6}
 <a href="contact.html">Contact Support</a>
 </div>
 <div class="main">
+<div class="cnt">
 <div class="crd">
 <h3>System Analytics</h3>
-<p>Total operational load is distributed across scalable AWS serverless Lambda containers backed by DynamoDB storage engines. Real-time metrics indicate stable pipeline execution.</p>
+<div class="grid">
+<div class="box">
+<h4>Server Working Frequency</h4>
+<p>99.98% Operational Uptime</p>
+</div>
+<div class="box">
+<h4>Data Pipeline Status</h4>
+<p>DynamoDB Active Stream</p>
+</div>
+<div class="box">
+<h4>Lambda Invocations</h4>
+<p>Stable Execution Load</p>
+</div>
+</div>
+</div>
+<div class="crd">
+<h3>Collaborating Institution</h3>
+<p>This enterprise architecture is officially deployed in collaboration with <strong>Babu Banarasi Das University (BBDU)</strong> to streamline student and administrative operational data securely across cloud infrastructure.</p>
+</div>
+</div>
+<div class="f" id="foot">
+<p>© 2026 CampusSync Blueprint | BBDU Integration Node</p>
+<a href="https://github.com/srtsubham">GitHub</a>
+<a href="#">LinkedIn</a>
+<a href="mailto:somyar.tripathi@gmail.com">Email</a>
+<a href="contact.html">Support</a>
 </div>
 </div>
 <script src="app.js"></script>

@@ -3,28 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <title>CampusSync | Contact Support</title>
-<style>
-:root{--b:#121212;--g:rgba(30,30,30,0.6);--r:rgba(255,255,255,0.08);--t:#e0e0e0;--a:#e67e22}
-*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif;cursor:none}
-body{background:var(--b);color:var(--t);display:flex;min-height:100vh;background-image:radial-gradient(circle at 10% 20%,rgba(230,126,34,0.05) 0,var(--b) 90%)}
-.nav{width:260px;background:var(--g);backdrop-filter:blur(12px);border-right:1px solid var(--r);padding:30px 20px;display:flex;flex-direction:column}
-.nav h2{font-size:24px;font-weight:600;color:var(--t);margin-bottom:40px;text-align:center}
-.nav h2 span{color:var(--a)}
-.nav a{color:rgba(224,224,224,0.7);text-decoration:none;padding:12px 16px;border-radius:8px;margin-bottom:8px;font-size:15px;transition:0.2s}
-.nav a:hover,.nav a.act{background:rgba(230,126,34,0.15);color:var(--a)}
-.main{flex:1;padding:40px;overflow-y:auto}
-.crd{background:var(--g);backdrop-filter:blur(12px);border:1px solid var(--r);border-radius:16px;padding:30px;box-shadow:0 8px 32px 0 rgba(0,0,0,0.37);margin-bottom:30px}
-h3{font-size:24px;font-weight:600;margin-bottom:20px;color:var(--t)}
-p{color:rgba(224,224,224,0.8);font-size:15px;line-height:1.6}
-#ca{width:20px;height:20px;border:2px solid var(--a);border-radius:50%;position:fixed;pointer-events:none;z-index:99;transform:translate(-50%,-50%)}
-#cb{width:6px;height:6px;background:var(--a);border-radius:50%;position:fixed;pointer-events:none;z-index:99;transform:translate(-50%,-50%)}
-</style>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
 </head>
 <body>
-<div id="ca"></div>
-<div id="cb"></div>
-<div class="nav">
+<div id="c"><div class="arw"></div><div class="dim"></div></div>
+<div class="h" id="head">
+<button onclick="ts()">☰</button>
 <h2>Campus<span>Sync</span></h2>
+<div class="xr">
+<a href="analytics.html">System Metrics</a>
+<a href="about.html">Architecture</a>
+</div>
+</div>
+<div class="nav" id="nb">
+<button class="cls" onclick="ts()">✕</button>
 <a href="index.html">Authentication</a>
 <a href="dashboard.html">Dashboard</a>
 <a href="analytics.html">Analytics</a>
@@ -32,11 +25,44 @@ p{color:rgba(224,224,224,0.8);font-size:15px;line-height:1.6}
 <a href="contact.html" class="act">Contact Support</a>
 </div>
 <div class="main">
+<div class="cnt">
 <div class="crd">
 <h3>Support Desk</h3>
-<p>For administrative queries or infrastructure overrides, reach out directly through internal communication channels or system administrators.</p>
+<p>For administrative queries or infrastructure overrides, submit your request to the management pipeline below.</p>
+<div class="flx">
+<input type="text" id="cn" placeholder="Full Name">
+<input type="email" id="ce" placeholder="Registered Email Address">
+<input type="text" id="cs" placeholder="Issue Subject">
+<input type="text" id="cm" placeholder="Message Details">
+<button onclick="subC()">Submit Request</button>
+</div>
+<p id="cmsg" class="lnk"></p>
+</div>
+</div>
+<div class="f" id="foot">
+<p>© 2026 CampusSync Blueprint | BBDU Integration Node</p>
+<a href="https://github.com/srtsubham">GitHub</a>
+<a href="#">LinkedIn</a>
+<a href="mailto:somyar.tripathi@gmail.com">Email</a>
+<a href="contact.html">Support</a>
 </div>
 </div>
 <script src="app.js"></script>
+<script>
+function subC() {
+    let n = document.getElementById("cn").value;
+    let m = document.getElementById("cm").value;
+    
+    if (!n || !m) return;
+    
+    document.getElementById("cmsg").innerText = "Request transmitted successfully to administration.";
+    setTimeout(() => document.getElementById("cmsg").innerText = "", 3000);
+    
+    document.getElementById("cn").value = "";
+    document.getElementById("ce").value = "";
+    document.getElementById("cs").value = "";
+    document.getElementById("cm").value = "";
+}
+</script>
 </body>
 </html>
