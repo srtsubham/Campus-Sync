@@ -15,9 +15,9 @@
 <div class="htabs">
 <a href="index.html">Home</a>
 <a href="https://bbdu.ac.in/" target="_blank">MyBBD</a>
-<a href="index.html#auth-sec">Documents</a>
+<a href="index.html#authSec">Documents</a>
 <a href="profile.html" class="act">My Profile<span class="pdot" id="pdt"></span></a>
-<div class="h-srch-box">
+<div class="hSrchBox">
 <svg viewBox="0 0 24 24"><path d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/></svg>
 <input type="text" id="hsbi" placeholder="Find anything here..." onkeyup="sbK()">
 <div class="sug" id="sbg"></div>
@@ -27,7 +27,7 @@
 
 <div class="nav" id="nb">
 <button class="cls" onclick="ts()">✕</button>
-<a href="index.html#auth-sec" onclick="ts()">Authentication</a>
+<a href="index.html#authSec" onclick="ts()">Authentication</a>
 <a href="dashboard.html">Dashboard</a>
 <a href="analytics.html">Analytics</a>
 <a href="about.html">Architecture</a>
@@ -43,7 +43,8 @@
 <input type="text" placeholder="Mobile / Telephone Contact (Optional)">
 <input type="text" placeholder="University Assigned Roll Number (Optional)">
 <textarea placeholder="Extra Curricular Operations & Activities (Optional)" style="height:120px"></textarea>
-<button onclick="alert('Profile Configuration Saved Natively.')">Synchronize Profile Data</button>
+<button class="syncBtn" onclick="alert('Profile Configuration Saved Natively.')" style="padding:16px;">SYNCHRONIZE PROFILE DATA</button>
+<button class="outBtn" id="loBtn" onclick="logOut()">LOG OUT</button>
 </div>
 </div>
 </div>

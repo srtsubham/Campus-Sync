@@ -1,23 +1,18 @@
 let gl = document.getElementById("cGlow");
-let mx = 0, my = 0;
 
 document.addEventListener("mousemove", e => {
-    mx = e.clientX;
-    my = e.clientY;
     if (gl) {
-        gl.style.left = mx + "px";
-        gl.style.top = my + "px";
+        gl.style.left = e.clientX + "px";
+        gl.style.top = e.clientY + "px";
     }
 
-    let le = document.getElementById("l-eye-l");
-    let re = document.getElementById("l-eye-r");
+    let le = document.getElementById("lEyeL");
+    let re = document.getElementById("lEyeR");
     if (le && re && !document.getElementById("svgLock").classList.contains("lckd")) {
         let rc = document.getElementById("svgLock").getBoundingClientRect();
         let cx = rc.left + rc.width / 2;
         let cy = rc.top + rc.height / 2;
-        let dx = mx - cx;
-        let dy = my - cy;
-        let an = Math.atan2(dy, dx);
+        let an = Math.atan2(e.clientY - cy, e.clientX - cx);
         let ox = Math.cos(an) * 4;
         let oy = Math.sin(an) * 4;
         le.setAttribute("cx", 35 + ox);
@@ -25,22 +20,13 @@ document.addEventListener("mousemove", e => {
         re.setAttribute("cx", 65 + ox);
         re.setAttribute("cy", 70 + oy);
     }
-
-    let btn = document.querySelector('.sync-btn');
-    if (btn) {
-        let br = btn.getBoundingClientRect();
-        let bx = br.left + br.width / 2;
-        let by = br.top + br.height / 2;
-        let ang = Math.atan2(mx - bx, by - my) * (180 / Math.PI);
-        btn.style.setProperty('--wave-deg', ang + 'deg');
-    }
 });
 
 document.addEventListener("mousedown", () => {
-    let lh = document.getElementById("l-teeth");
-    let lm = document.getElementById("l-mouth");
-    let le = document.getElementById("l-eye-l");
-    let re = document.getElementById("l-eye-r");
+    let lh = document.getElementById("lTeeth");
+    let lm = document.getElementById("lMouth");
+    let le = document.getElementById("lEyeL");
+    let re = document.getElementById("lEyeR");
     if(lh && lm && le && re && !document.getElementById("svgLock").classList.contains("lckd")) {
         lh.style.opacity = "1";
         lm.setAttribute("d", "M 35 78 Q 50 100 65 78");
@@ -50,10 +36,10 @@ document.addEventListener("mousedown", () => {
 });
 
 document.addEventListener("mouseup", () => {
-    let lh = document.getElementById("l-teeth");
-    let lm = document.getElementById("l-mouth");
-    let le = document.getElementById("l-eye-l");
-    let re = document.getElementById("l-eye-r");
+    let lh = document.getElementById("lTeeth");
+    let lm = document.getElementById("lMouth");
+    let le = document.getElementById("lEyeL");
+    let re = document.getElementById("lEyeR");
     if(lh && lm && le && re && !document.getElementById("svgLock").classList.contains("lckd")) {
         lh.style.opacity = "0";
         lm.setAttribute("d", "M 35 80 Q 50 95 65 80");
@@ -66,14 +52,19 @@ function ts() { document.getElementById("nb").classList.toggle("sh"); }
 
 function cp() {
     let pt = document.getElementById("pdt");
+    let lo = document.getElementById("loBtn");
+    
     if(pt) {
         if(localStorage.getItem("tok")) {
             pt.className = "pdot grn";
-            let f = document.getElementById("l-face");
-            let s = document.getElementById("l-shack");
-            let b = document.getElementById("l-body");
+            if(lo) lo.style.display = "block";
+            
+            let f = document.getElementById("lFace");
+            let s = document.getElementById("lShack");
+            let b = document.getElementById("lBody");
             let l = document.getElementById("svgLock");
             let key = document.getElementById("svgKey");
+            
             if(f) f.style.opacity = "0";
             if(s) {
                 s.setAttribute("d", "M 30 50 V 30 A 20 20 0 0 1 70 30 V 50");
@@ -88,11 +79,13 @@ function cp() {
                 l.style.filter = "drop-shadow(0 0 30px rgba(0,200,81,0.6))";
             }
             if(key) {
-                key.style.transform = "translate(-140px, 50px) rotate(-90deg)";
+                key.style.transform = "translate(-100px, 30px) rotate(-90deg)";
                 key.style.opacity = "0";
             }
+        } else {
+            pt.className = "pdot red";
+            if(lo) lo.style.display = "none";
         }
-        else pt.className = "pdot red";
     }
 }
 
@@ -138,9 +131,9 @@ function rdB() {
     if(!fb) return;
     fb.style.opacity = 0;
     setTimeout(() => {
-        document.getElementById("fb-h").innerText = bd[bI].t;
-        document.getElementById("fb-p").innerText = bd[bI].d;
-        document.getElementById("fb-i").innerText = bd[bI].i;
+        document.getElementById("fbH").innerText = bd[bI].t;
+        document.getElementById("fbP").innerText = bd[bI].d;
+        document.getElementById("fbI").innerText = bd[bI].i;
         fb.style.opacity = 1;
     }, 400);
 }
@@ -149,7 +142,7 @@ function nxtB() { bI = (bI + 1) % bd.length; rdB(); }
 function prvB() { bI = (bI - 1 + bd.length) % bd.length; rdB(); }
 
 let aSld = setInterval(nxtB, 5000);
-let bwp = document.querySelector('.fbnnr-wrap');
+let bwp = document.querySelector('.fbnnrWrap');
 if(bwp) {
     bwp.addEventListener('mouseenter', () => clearInterval(aSld));
     bwp.addEventListener('mouseleave', () => aSld = setInterval(nxtB, 5000));
@@ -157,7 +150,6 @@ if(bwp) {
 
 const p = "ap-south-1_t98NCsCga";
 const c = "5jvj3v12i36l2dfkm4odtln9v0";
-const b = "https://hgd7eyusfj.execute-api.ap-south-1.amazonaws.com/Prod";
 
 let d = { UserPoolId: p, ClientId: c };
 let up = new AmazonCognitoIdentity.CognitoUserPool(d);
@@ -184,14 +176,14 @@ function login() {
     
     cu.setAuthenticationFlowType('USER_PASSWORD_AUTH');
     
-    document.body.classList.add("auth-animating");
+    document.body.classList.add("authAnimating");
     let key = document.getElementById("svgKey");
     let lock = document.getElementById("svgLock");
-    let face = document.getElementById("l-face");
-    let shack = document.getElementById("l-shack");
-    let body = document.getElementById("l-body");
+    let face = document.getElementById("lFace");
+    let shack = document.getElementById("lShack");
+    let body = document.getElementById("lBody");
 
-    if(key) key.classList.add("key-orb");
+    if(key) key.classList.add("keyOrb");
 
     setTimeout(() => {
         if(shack) {
@@ -215,8 +207,8 @@ function login() {
             },
             onFailure: function(err) {
                 setTimeout(() => {
-                    document.body.classList.remove("auth-animating");
-                    if(key) key.classList.remove("key-orb");
+                    document.body.classList.remove("authAnimating");
+                    if(key) key.classList.remove("keyOrb");
                     if(shack) {
                         shack.setAttribute("d", "M 30 50 V 30 A 20 20 0 0 1 70 30 V 40");
                         shack.setAttribute("stroke", "#fff");
@@ -255,6 +247,11 @@ function register() {
         alert("Record created successfully. Return to access to authenticate.");
         tog(0);
     });
+}
+
+function logOut() {
+    localStorage.removeItem("tok");
+    window.location.href = "index.html";
 }
 
 function sbK() {

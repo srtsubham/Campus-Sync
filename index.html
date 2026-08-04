@@ -15,9 +15,9 @@
 <div class="htabs">
 <a href="index.html">Home</a>
 <a href="https://bbdu.ac.in/" target="_blank">MyBBD</a>
-<a href="index.html#auth-sec">Documents</a>
+<a href="index.html#authSec">Documents</a>
 <a href="profile.html">My Profile<span class="pdot" id="pdt"></span></a>
-<div class="h-srch-box">
+<div class="hSrchBox">
 <svg viewBox="0 0 24 24"><path d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/></svg>
 <input type="text" id="hsbi" placeholder="Find anything here..." onkeyup="sbK()">
 <div class="sug" id="sbg"></div>
@@ -27,7 +27,7 @@
 
 <div class="nav" id="nb">
 <button class="cls" onclick="ts()">✕</button>
-<a href="index.html#auth-sec" onclick="ts()" class="act">Authentication</a>
+<a href="index.html#authSec" onclick="ts()" class="act">Authentication</a>
 <a href="dashboard.html">Dashboard</a>
 <a href="analytics.html">Analytics</a>
 <a href="about.html">Architecture</a>
@@ -38,82 +38,79 @@
 <div class="s1">
 <div class="wlc">
 <h1>INSTITUTION<br>OPERATIONS<br>SYNCHRONIZED.</h1>
-<div class="s1-logo">Campus<span>Sync</span></div>
+<div class="s1Logo">Campus<span>Sync</span></div>
 </div>
 </div>
 
-<div class="auth-bnr" id="auth-sec">
-<div class="auth-wrap">
-<div class="auth-l">
-<div class="auth-l-inner">
-<svg id="svgLock" viewBox="-20 -20 140 140" style="width:380px; filter:drop-shadow(0 0 20px rgba(255,255,255,0.4)); transition: filter 0.4s, transform 0.3s; z-index:2; position:relative">
-<path id="l-shack" d="M 30 50 V 30 A 20 20 0 0 1 70 30 V 40" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" style="transition:0.4s"/>
-<rect id="l-body" x="10" y="50" width="80" height="60" rx="10" fill="rgba(0,0,0,0.8)" stroke="#fff" stroke-width="6" style="transition:0.4s"/>
-<g id="l-face" style="transition:0.3s">
-<ellipse id="l-eye-l" cx="35" cy="70" rx="5" ry="5" fill="#fff" style="transition:0.2s"/>
-<ellipse id="l-eye-r" cx="65" cy="70" rx="5" ry="5" fill="#fff" style="transition:0.2s"/>
-<path id="l-mouth" d="M 35 80 Q 50 95 65 80" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" style="transition:0.2s"/>
-<path id="l-teeth" d="M 40 82 Q 50 88 60 82" fill="#fff" opacity="0" style="transition:0.2s"/>
+<div class="authBnr" id="authSec">
+<div class="authWrap">
+<div class="authL">
+<svg id="svgLock" viewBox="-20 -20 140 140" style="width:250px; filter:drop-shadow(0 0 20px rgba(255,255,255,0.4)); transition: filter 0.4s, transform 0.3s; z-index:2; position:relative">
+<path id="lShack" d="M 30 50 V 30 A 20 20 0 0 1 70 30 V 40" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" style="transition:0.4s"/>
+<rect id="lBody" x="10" y="50" width="80" height="60" rx="10" fill="rgba(0,0,0,0.8)" stroke="#fff" stroke-width="4" style="transition:0.4s"/>
+<g id="lFace" style="transition:0.3s">
+<ellipse id="lEyeL" cx="35" cy="70" rx="5" ry="5" fill="#fff" style="transition:0.2s"/>
+<ellipse id="lEyeR" cx="65" cy="70" rx="5" ry="5" fill="#fff" style="transition:0.2s"/>
+<path id="lMouth" d="M 35 80 Q 50 95 65 80" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" style="transition:0.2s"/>
+<path id="lTeeth" d="M 40 82 Q 50 88 60 82" fill="#fff" opacity="0" style="transition:0.2s"/>
 </g>
 </svg>
-<svg id="svgKey" viewBox="0 0 100 200" style="position:absolute; right:-70px; top:50%; margin-top:-140px; height:280px; filter:drop-shadow(0 0 15px rgba(255,255,255,0.4)); z-index:3; transition: transform 1.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s;">
-<circle cx="50" cy="160" r="20" fill="none" stroke="#fff" stroke-width="12"/>
-<line x1="50" y1="140" x2="50" y2="20" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
-<line x1="50" y1="50" x2="80" y2="50" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
-<line x1="50" y1="80" x2="80" y2="80" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+<svg id="svgKey" viewBox="0 0 100 200" style="position:absolute; right:-90px; top:10px; height:180px; filter:drop-shadow(0 0 15px rgba(255,255,255,0.4)); z-index:3; transition: transform 1.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s;">
+<circle cx="50" cy="160" r="20" fill="none" stroke="#fff" stroke-width="10"/>
+<line x1="50" y1="140" x2="50" y2="20" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+<line x1="50" y1="50" x2="80" y2="50" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+<line x1="50" y1="80" x2="80" y2="80" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
 </svg>
 </div>
-</div>
-<div class="auth-r-box">
-<div class="auth-r" id="lf">
+<div class="authR" id="lf">
 <h3>System Access</h3>
 <input type="text" id="u" placeholder="Username or Email">
 <input type="password" id="p" placeholder="Password">
-<button class="sync-btn" onclick="login()">SYNC IN</button>
-<span class="lnk" onclick="tog(1)">Initialize New Record</span>
+<button class="syncBtn" onclick="login()">SYNC IN</button>
+<button class="outBtn" id="loBtn" onclick="logOut()">LOG OUT</button>
+<span class="lnk" onclick="tog(1)">Not registered yet? Sign up.</span>
 </div>
-<div class="auth-r" id="rf" style="display:none">
+<div class="authR" id="rf" style="display:none">
 <h3>Register Identity</h3>
 <input type="text" id="ru" placeholder="Username">
 <input type="email" id="re" placeholder="Email Address">
 <input type="password" id="rp" placeholder="Password">
-<button class="sync-btn" onclick="register()">SYNC IN</button>
-<span class="lnk" onclick="tog(0)">Return to Access</span>
-</div>
+<button class="syncBtn" onclick="register()">SYNC IN</button>
+<span class="lnk" onclick="tog(0)">Already registered? Sync in.</span>
 </div>
 </div>
 </div>
 
-<div class="s3" id="cards-sec">
+<div class="s3" id="cardsSec">
 <div class="pcard">
-<div class="pc-img"></div>
+<div class="pcImg"></div>
 <p>I am somya form BBDU</p>
 </div>
 <div class="pcard">
-<div class="pc-img"></div>
+<div class="pcImg"></div>
 <p>I am somya form BBDU</p>
 </div>
 <div class="pcard">
-<div class="pc-img"></div>
+<div class="pcImg"></div>
 <p>I am somya form BBDU</p>
 </div>
 <div class="pcard">
-<div class="pc-img"></div>
+<div class="pcImg"></div>
 <p>I am somya form BBDU</p>
 </div>
 </div>
 
 <div class="s4">
-<div class="fbnnr-wrap">
-<button class="bnarr arr-l" onclick="prvB()">❮</button>
+<div class="fbnnrWrap">
+<button class="bnarr arrL" onclick="prvB()">❮</button>
 <div class="fbnnr" id="fbn">
-<div class="fb-txt">
-<h2 id="fb-h">TITLE</h2>
-<p id="fb-p">Desc</p>
+<div class="fbTxt">
+<h2 id="fbH">TITLE</h2>
+<p id="fbP">Desc</p>
 </div>
-<div class="fb-img" id="fb-i">IMG</div>
+<div class="fbImg" id="fbI">IMG</div>
 </div>
-<button class="bnarr arr-r" onclick="nxtB()">❯</button>
+<button class="bnarr arrR" onclick="nxtB()">❯</button>
 </div>
 </div>
 </div>
