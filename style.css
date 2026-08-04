@@ -49,11 +49,11 @@ button:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(230,126,34,0.
 .s1Logo{font-size:clamp(30px,4vw,45px);font-weight:800;letter-spacing:1px;color:var(--t);text-shadow:0 5px 20px rgba(0,0,0,0.8);margin:0 auto;text-align:justify;text-align-last:center;width:100%}
 .s1Logo span{color:var(--a)}
 .authBnr{width:100vw;margin-left:calc(-50vw + 50%);background:rgba(255,255,255,0.03);border-top:1px solid rgba(255,255,255,0.15);border-bottom:1px solid rgba(255,255,255,0.15);padding:80px 5%;box-shadow:0 0 50px rgba(255,255,255,0.02);position:relative;display:flex;justify-content:center;transition:background 0.8s,border 0.8s}
-.authWrap{width:100%;max-width:1100px;display:flex;align-items:center;justify-content:center;gap:120px}
-.authL{position:relative;display:flex;justify-content:center;align-items:center;z-index:2;width:300px;height:300px}
+.authWrap{width:100%;max-width:1400px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:10}
+.authL{flex:1;display:flex;justify-content:center;align-items:center;position:relative}
 .authLInner{position:relative;display:flex;align-items:center;justify-content:center;width:100%}
-.authRBox{flex:1;display:flex;justify-content:center;align-items:center;position:relative}
-.authR{width:100%;max-width:400px;display:flex;flex-direction:column;gap:15px;transition:transform 0.8s cubic-bezier(0.4,0,0.2,1),opacity 0.5s;z-index:3}
+.authRBox{flex:1;display:flex;justify-content:flex-start;align-items:center;position:relative}
+.authR{width:100%;max-width:400px;display:flex;flex-direction:column;gap:15px;transition:transform 0.8s cubic-bezier(0.4,0,0.2,1),opacity 0.5s;z-index:3;transform:translateX(45px)}
 .authR h3{color:#fff;font-size:32px;font-weight:800;margin-bottom:20px;text-align:center}
 .authR input{width:100%;margin:0;padding:16px;background:#050201!important;border:1px solid var(--r)}
 .syncBtn{width:100%;margin:10px 0 0 0;padding:16px;background:linear-gradient(145deg,#ff9d2f,#e67e22)!important;border:none!important;color:#fff!important;font-weight:800;text-transform:uppercase;font-size:16px!important;letter-spacing:2px;box-shadow:inset 2px 2px 5px rgba(255,255,255,0.4),inset -2px -2px 5px rgba(0,0,0,0.2),0 0 20px rgba(230,126,34,0.6)!important;text-shadow:0 1px 2px rgba(0,0,0,0.5);cursor:pointer;transition:0.3s}
@@ -63,8 +63,6 @@ button:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(230,126,34,0.
 body.authAnimating .h,body.authAnimating .nav,body.authAnimating .s1,body.authAnimating .s3,body.authAnimating .s4,body.authAnimating .f{opacity:0;pointer-events:none}
 body.authAnimating .authBnr{background:#000;border-color:#000}
 body.authAnimating .authR{transform:translateX(150%);opacity:0}
-@keyframes keyOrb{0%{transform:translate(0,0) rotate(0deg);opacity:1}30%{transform:translate(0,100px) rotate(0deg);opacity:1}60%{transform:translate(-100px,100px) rotate(-90deg);opacity:1}100%{transform:translate(-100px,30px) rotate(-90deg);opacity:0}}
-.keyOrb{animation:keyOrb 1.5s forwards ease-in-out!important}
 .s3{width:100%;max-width:1400px;margin:0 auto;padding:100px 5%;display:grid;grid-template-columns:repeat(4,1fr);gap:2vw;perspective:1000px;min-height:60vh;align-items:center}
 .pcard{background:var(--g);backdrop-filter:blur(24px);border:1px solid var(--r);border-radius:20px;padding:25px;opacity:0;transform:translateY(150px) scale(0.9);transition:opacity 0.8s ease,transform 0.8s ease;box-shadow:0 10px 30px rgba(0,0,0,0.5);display:flex;flex-direction:column;aspect-ratio:3/4;min-width:200px}
 .pcard.vis{opacity:1;transform:translateY(0) scale(1)}
@@ -97,5 +95,24 @@ th{color:var(--a);font-weight:800;text-transform:uppercase;font-size:13px;letter
 .flx button{margin:0}
 .cdf{min-height:calc(100vh - 170px);display:flex;flex-direction:column;justify-content:center}
 @media(max-width:900px){.s3{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:768px){.authWrap,.fbnnr{flex-direction:column;text-align:center}.authL{width:100%;margin-bottom:40px;height:auto}.authRBox{width:100%}.authR,.fbTxt{padding-right:0;margin-bottom:40px}.htabs{display:none}.bnarr{font-size:30px}.arrL{left:0}.arrR{right:0}.fbnnr{padding:40px 20px}}
+@media(max-width:768px){.authWrap,.fbnnr{flex-direction:column;text-align:center;transform:translateX(0)}.authL{width:100%;margin-bottom:40px;height:auto}.authRBox{width:100%}.authR,.fbTxt{padding-right:0;margin-bottom:40px;transform:translateX(0)}.htabs{display:none}.bnarr{font-size:30px}.arrL{left:0}.arrR{right:0}.fbnnr{padding:40px 20px}}
 @media(max-width:500px){.s3{grid-template-columns:1fr}}
+.bgLocks{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:1}
+.mLck{position:absolute;width:100px;height:100px;opacity:0.12;filter:drop-shadow(0 0 8px rgba(255,255,255,0.3));transition:transform 0.8s cubic-bezier(0.4,0,0.2,1),filter 0.8s}
+.mLck.lckd{transform:rotate(0deg)!important}
+.ml1{top:10%;left:8%;transform:rotate(-25deg)}
+.ml2{top:70%;left:12%;transform:rotate(30deg)}
+.ml3{top:15%;left:38%;transform:rotate(15deg)}
+.ml4{top:85%;left:32%;transform:rotate(-40deg)}
+.ml5{top:20%;right:12%;transform:rotate(45deg)}
+.ml6{top:75%;right:8%;transform:rotate(-20deg)}
+.ml7{top:10%;right:35%;transform:rotate(60deg)}
+.ml8{top:80%;right:40%;transform:rotate(-10deg)}
+.ml9{top:45%;left:5%;transform:rotate(-60deg)}
+.ml10{top:55%;right:5%;transform:rotate(75deg)}
+.ml11{top:5%;left:22%;transform:rotate(-15deg)}
+.ml12{top:90%;left:20%;transform:rotate(45deg)}
+.ml13{top:8%;right:22%;transform:rotate(25deg)}
+.ml14{top:88%;right:20%;transform:rotate(-35deg)}
+.ml15{top:35%;left:45%;transform:rotate(-5deg)}
+.ml16{top:65%;right:45%;transform:rotate(15deg)}

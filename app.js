@@ -21,6 +21,23 @@ document.addEventListener("mousemove", e => {
         re.setAttribute("cy", 65 + oy);
     }
 
+    document.querySelectorAll(".mLck").forEach(lck => {
+        let mle = lck.querySelector(".mEyeL");
+        let mre = lck.querySelector(".mEyeR");
+        let mrc = lck.getBoundingClientRect();
+        let mcx = mrc.left + mrc.width / 2;
+        let mcy = mrc.top + mrc.height / 2;
+        let man = Math.atan2(e.clientY - mcy, e.clientX - mcx);
+        let mox = Math.cos(man) * 4;
+        let moy = Math.sin(man) * 4;
+        if(mle && mre && !lck.classList.contains("lckd")) {
+            mle.setAttribute("cx", 30 + mox);
+            mle.setAttribute("cy", 65 + moy);
+            mre.setAttribute("cx", 70 + mox);
+            mre.setAttribute("cy", 65 + moy);
+        }
+    });
+
     let btn = document.querySelector('.syncBtn');
     if (btn) {
         let br = btn.getBoundingClientRect();
@@ -42,6 +59,17 @@ document.addEventListener("mousedown", () => {
         le.setAttribute("ry", "7");
         re.setAttribute("ry", "7");
     }
+
+    document.querySelectorAll(".mLck").forEach(lck => {
+        let mlm = lck.querySelector(".mMouth");
+        let mle = lck.querySelector(".mEyeL");
+        let mre = lck.querySelector(".mEyeR");
+        if(mlm && mle && mre && !lck.classList.contains("lckd")) {
+            mlm.setAttribute("d", "M 30 85 Q 50 110 70 85");
+            mle.setAttribute("ry", "7");
+            mre.setAttribute("ry", "7");
+        }
+    });
 });
 
 document.addEventListener("mouseup", () => {
@@ -55,6 +83,17 @@ document.addEventListener("mouseup", () => {
         le.setAttribute("ry", "5");
         re.setAttribute("ry", "5");
     }
+
+    document.querySelectorAll(".mLck").forEach(lck => {
+        let mlm = lck.querySelector(".mMouth");
+        let mle = lck.querySelector(".mEyeL");
+        let mre = lck.querySelector(".mEyeR");
+        if(mlm && mle && mre && !lck.classList.contains("lckd")) {
+            mlm.setAttribute("d", "M 30 88 Q 50 105 70 88");
+            mle.setAttribute("ry", "5");
+            mre.setAttribute("ry", "5");
+        }
+    });
 });
 
 function ts() { document.getElementById("nb").classList.toggle("sh"); }
@@ -72,7 +111,6 @@ function cp() {
             let s = document.getElementById("lShack");
             let b = document.getElementById("lBody");
             let l = document.getElementById("svgLock");
-            let key = document.getElementById("svgKey");
             
             if(f) f.style.opacity = "0";
             if(s) {
@@ -87,10 +125,22 @@ function cp() {
                 l.classList.add("lckd");
                 l.style.filter = "drop-shadow(0 0 30px rgba(0,200,81,0.6))";
             }
-            if(key) {
-                key.style.transform = "translate(-320px, 100px) rotate(-90deg)";
-                key.style.opacity = "0";
-            }
+
+            document.querySelectorAll(".mLck").forEach(lck => {
+                let ms = lck.querySelector(".mShack");
+                let mb = lck.querySelector(".mBody");
+                if(ms) {
+                    ms.setAttribute("d", "M 30 50 V 30 A 20 20 0 0 1 70 30 V 50");
+                    ms.setAttribute("stroke", "#00C851");
+                }
+                if(mb) {
+                    mb.setAttribute("fill", "#00C851");
+                    mb.setAttribute("stroke", "#00C851");
+                }
+                lck.classList.add("lckd");
+                lck.style.filter = "drop-shadow(0 0 15px rgba(0,200,81,0.4))";
+            });
+
         } else {
             pt.className = "pdot red";
             if(lo) lo.style.display = "none";
@@ -186,13 +236,10 @@ function login() {
     cu.setAuthenticationFlowType('USER_PASSWORD_AUTH');
     
     document.body.classList.add("authAnimating");
-    let key = document.getElementById("svgKey");
     let lock = document.getElementById("svgLock");
     let face = document.getElementById("lFace");
     let shack = document.getElementById("lShack");
     let body = document.getElementById("lBody");
-
-    if(key) key.classList.add("keyOrb");
 
     setTimeout(() => {
         if(shack) {
@@ -209,6 +256,21 @@ function login() {
             lock.style.filter = "drop-shadow(0 0 30px rgba(0,200,81,0.6))";
         }
 
+        document.querySelectorAll(".mLck").forEach(lck => {
+            let ms = lck.querySelector(".mShack");
+            let mb = lck.querySelector(".mBody");
+            if(ms) {
+                ms.setAttribute("d", "M 30 50 V 30 A 20 20 0 0 1 70 30 V 50");
+                ms.setAttribute("stroke", "#00C851");
+            }
+            if(mb) {
+                mb.setAttribute("fill", "#00C851");
+                mb.setAttribute("stroke", "#00C851");
+            }
+            lck.classList.add("lckd");
+            lck.style.filter = "drop-shadow(0 0 15px rgba(0,200,81,0.4))";
+        });
+
         cu.authenticateUser(ad, {
             onSuccess: function(res) {
                 localStorage.setItem("tok", res.getIdToken().getJwtToken());
@@ -217,7 +279,6 @@ function login() {
             onFailure: function(err) {
                 setTimeout(() => {
                     document.body.classList.remove("authAnimating");
-                    if(key) key.classList.remove("keyOrb");
                     if(shack) {
                         shack.setAttribute("d", "M 30 50 V 30 A 20 20 0 0 1 70 30 V 40");
                         shack.setAttribute("stroke", "#fff");
@@ -231,11 +292,27 @@ function login() {
                         lock.classList.remove("lckd");
                         lock.style.filter = "drop-shadow(0 0 20px rgba(255,255,255,0.4))";
                     }
+
+                    document.querySelectorAll(".mLck").forEach(lck => {
+                        let ms = lck.querySelector(".mShack");
+                        let mb = lck.querySelector(".mBody");
+                        if(ms) {
+                            ms.setAttribute("d", "M 30 50 V 30 A 20 20 0 0 1 70 30 V 40");
+                            ms.setAttribute("stroke", "#fff");
+                        }
+                        if(mb) {
+                            mb.setAttribute("fill", "#050201");
+                            mb.setAttribute("stroke", "#fff");
+                        }
+                        lck.classList.remove("lckd");
+                        lck.style.filter = "drop-shadow(0 0 8px rgba(255,255,255,0.3))";
+                    });
+
                     alert(err.message || JSON.stringify(err));
                 }, 1000);
             }
         });
-    }, 1500);
+    }, 800);
 }
 
 function register() {
