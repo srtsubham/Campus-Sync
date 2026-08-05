@@ -1,4 +1,4 @@
-let gl = document.getElementById("cGlow");
+let gl = document.getElementById("cGlow"); #Version 1.7
 
 document.addEventListener("mousemove", e => {
     if (gl) {
